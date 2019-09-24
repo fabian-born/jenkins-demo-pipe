@@ -14,7 +14,7 @@ podTemplate(label: 'mypod', containers: [
             checkout scm
         }
      
-        stage("Create Test instance") {
+   
 
         
         stage ("Automated Test Cases"){
