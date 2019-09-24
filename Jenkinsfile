@@ -13,7 +13,9 @@ podTemplate(label: 'mypod', containers: [
         stage("Checkout") {
             checkout scm
         }
-     
+        stage ("Build Container"){
+         
+        }
    
 
         
