@@ -16,7 +16,9 @@ podTemplate(label: 'mypod', containers: [
         stage ("Build Container"){
          
         }
-   
+        stage ("Next Stage"){
+         
+        }   
 
         
         stage ("Automated Test Cases"){
