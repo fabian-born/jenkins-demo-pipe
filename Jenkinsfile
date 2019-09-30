@@ -14,7 +14,6 @@ podTemplate(label: 'mypod', containers: [
             checkout scm
         }
         stage ("Build Container"){
-            notifyBuild(currentBuild.result)
          
         }
         stage ("Next Stage"){
@@ -70,6 +69,11 @@ podTemplate(label: 'mypod', containers: [
           
             }
         }
+        
+        stage('finale notification'){
+            notifyBuild(currentBuild.result)
+        }
+        
     }
 }
 
