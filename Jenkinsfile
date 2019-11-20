@@ -1,5 +1,5 @@
-{
-    node('mypod') {
+pipeline {
+        agent any
         
         deleteDir()
         
@@ -54,8 +54,6 @@
         stage('finale notification'){
             notifyBuild(currentBuild.result)
         }
-        
-    }
 }
 
 
