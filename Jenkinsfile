@@ -1,11 +1,4 @@
-podTemplate(label: 'mypod', containers: [
-    containerTemplate(name: 'docker', image: 'docker', ttyEnabled: true, command: 'cat'),
-    containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.8.0', command: 'cat', ttyEnabled: true),
-    containerTemplate(name: 'helm', image: 'lachlanevenson/k8s-helm:v2.7.2', command: 'cat', ttyEnabled: true)
-  ],
-  volumes: [
-    hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'),
-  ]) {
+{
     node('mypod') {
         
         deleteDir()
@@ -52,22 +45,10 @@ podTemplate(label: 'mypod', containers: [
         }
         
         stage('Deploy in Production') {
-            container('kubectl') {
-                sh "sleep 10"
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', 
-                        credentialsId: 'docker-hub-cred',
-                        usernameVariable: 'DOCKER_HUB_USER',
-                        passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
-                    
-                    
-                }
-            }
+
         }
         stage('Delete test instance') {
-            container('helm') {
-    
-          
-            }
+
         }
         
         stage('finale notification'){
