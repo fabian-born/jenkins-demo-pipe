@@ -1,10 +1,58 @@
-pipeline {
-    agent any
+node('node') {
 
-    stages {
-        stages('Test') {
-        }
+
+    currentBuild.result = "SUCCESS"
+
+    try {
+
+       stage('Checkout'){
+
+          checkout scm
+       }
+
+       stage('Test'){
+
+         env.NODE_ENV = "test"
+
+         print "Environment will be : ${env.NODE_ENV}"
+
+
+       }
+
+       stage('Build Docker'){
+
+            sh './dockerBuild.sh'
+       }
+
+       stage('Deploy'){
+
+         echo 'Push to Repo'
+
+
+       }
+
+       stage('Cleanup'){
+
+         echo 'prune and cleanup'
+
+       }
+
+
+
     }
+    catch (err) {
+
+        currentBuild.result = "FAILURE"
+
+            mail body: "project build error is here: ${env.BUILD_URL}" ,
+            from: 'xxxx@yyyy.com',
+            replyTo: 'yyyy@yyyy.com',
+            subject: 'project build failed',
+            to: 'zzzz@yyyyy.com'
+
+        throw err
+    }
+
 }
 
 def notifyBuild(String buildStatus = 'STARTED') {
